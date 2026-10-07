@@ -1,0 +1,65 @@
+//
+// Custom
+//
+
+@use 'sass:map';
+
+.scroll-margin {
+	scroll-margin-top: map.get($header, height) + map.get($subheader, height) +
+		map.get($page, padding-y);
+}
+
+.sticky-top-size {
+	top: map.get($header, height) + map.get($subheader, height) + map.get($page, padding-y);
+}
+
+.border-transparent {
+	--#{$prefix}border-opacity: 0;
+}
+
+//
+// Dark mode: Bootstrap's "light" helpers
+//
+// App.tsx sets [data-bs-theme='dark'] on <html> in dark mode, but
+// Bootstrap's .bg-light / .bg-white / .table-light / .text-dark are fixed
+// colours that do not follow the theme — so every stat tile, table header
+// and info box built with them stayed bright white in dark mode, with the
+// theme's light text on top (unreadable). These overrides make them follow
+// the theme everywhere at once instead of fixing each page separately.
+//
+[data-bs-theme='dark'] {
+	.bg-light {
+		background-color: rgba(255, 255, 255, 0.06) !important;
+	}
+
+	.bg-white {
+		background-color: var(--#{$prefix}tertiary-bg, #242731) !important;
+	}
+
+	.text-dark {
+		color: var(--#{$prefix}body-color, #e7eef8) !important;
+	}
+
+	.table-light,
+	.table > thead.table-light > tr > th,
+	.table > tfoot > tr.table-light > td,
+	.table > tbody > tr.table-light > td,
+	.table > tfoot > tr.table-light > th {
+		--#{$prefix}table-bg: rgba(255, 255, 255, 0.06);
+		--#{$prefix}table-color: var(--#{$prefix}body-color, #e7eef8);
+		--#{$prefix}table-border-color: rgba(255, 255, 255, 0.1);
+		background-color: rgba(255, 255, 255, 0.06);
+		color: var(--#{$prefix}body-color, #e7eef8);
+	}
+
+	.btn-light:not(.btn-light-primary):not([class*='btn-light-']) {
+		--#{$prefix}btn-bg: rgba(255, 255, 255, 0.08);
+		--#{$prefix}btn-border-color: rgba(255, 255, 255, 0.08);
+		--#{$prefix}btn-color: var(--#{$prefix}body-color, #e7eef8);
+		--#{$prefix}btn-hover-bg: rgba(255, 255, 255, 0.14);
+		--#{$prefix}btn-hover-border-color: rgba(255, 255, 255, 0.14);
+		--#{$prefix}btn-hover-color: #fff;
+		--#{$prefix}btn-active-bg: rgba(255, 255, 255, 0.18);
+		--#{$prefix}btn-active-color: #fff;
+	}
+}
